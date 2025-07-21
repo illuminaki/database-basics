@@ -4,7 +4,7 @@ Bienvenido/a a este repositorio pensado para dar tus primeros pasos en el mundo 
 
 ## ¿A quién va dirigido?
 
-Estudiantes de nivel **principiante** o personas en transición al desarrollo de software que necesitan una base sólida sobre bases de datos.
+Coders nuevos o personas en transición al desarrollo de software que necesitan una base sólida sobre bases de datos.
 
 ## ¿Qué aprenderás?
 
@@ -19,6 +19,8 @@ Estudiantes de nivel **principiante** o personas en transición al desarrollo de
 
 | Archivo | Descripción |
 |---------|-------------|
+| `docker-compose.yml` | Configuración de contenedores para PostgreSQL y pgAdmin. |
+| `.env` | Variables de entorno para la configuración de PostgreSQL y pgAdmin. |
 | `README.md` | Visión general y guía de uso del repositorio. |
 | `teoria.md` | Contenido teórico completo con ejemplos y diagramas. |
 | `ejercicios.md` | Ejercicios de reforzamiento y auto-evaluación. |
@@ -31,3 +33,40 @@ Estudiantes de nivel **principiante** o personas en transición al desarrollo de
 4. **Discusión**: compara tus respuestas o comparte dudas con tu grupo de estudio.
 
 > "La mejor manera de aprender es haciendo" — ¡manos a la obra!
+
+---
+
+## Entorno Docker (PostgreSQL + pgAdmin)
+
+Este repositorio incluye un `docker-compose.yml` que levanta:
+
+* **PostgreSQL 15** (`db`)
+* **pgAdmin 4** (`pgadmin`) en `http://localhost:5050`
+
+### 1. Comandos básicos
+
+| Acción | Docker Compose v2 (`docker compose`) | Docker Compose v1 (`docker-compose`) |
+|--------|--------------------------------------|--------------------------------------|
+| Descargar imágenes | `docker compose pull` | `docker-compose pull` |
+| Levantar contenedores **en segundo plano** | `docker compose up -d` | `docker-compose up -d` |
+| Levantar contenedores **en primer plano** | `docker compose up` | `docker-compose up` |
+| Ver logs en vivo | `docker compose logs -f` | `docker-compose logs -f` |
+| Detener y eliminar contenedores | `docker compose down` | `docker-compose down` |
+
+> **Nota sobre `-d`**: la opción `-d` (detached) inicia los contenedores en segundo plano y devuelve de inmediato el control a la consola. Sin `-d`, la consola se queda mostrando los logs en tiempo real hasta que presiones `Ctrl+C`.
+
+### 2. Variables de entorno
+
+Modifica el archivo `.env` para cambiar usuario, contraseña o puertos antes de ejecutar los comandos anteriores.
+
+### 3. Conectar desde pgAdmin
+
+1. Inicia sesión con las credenciales de `.env` (`PGADMIN_DEFAULT_EMAIL`, `PGADMIN_DEFAULT_PASSWORD`).
+2. Crea un nuevo servidor con:
+   * **Host**: `db`
+   * **Puerto**: `5432`
+   * **Usuario/Contraseña**: según `.env`
+   * **Base de datos**: `demo_db`
+
+¡Listo! Ya puedes practicar las consultas SQL del repositorio en un entorno real.
+
