@@ -1,4 +1,4 @@
-# Ejercicios de Bases de Datos
+# Laboratorio Práctico: Creación de Base de Datos, Poblado Masivo, CRUD y JOINs
 
 ## 1. Relaciona conceptos
 

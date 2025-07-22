@@ -53,8 +53,13 @@ Una base de datos (BD) es un **conjunto organizado de información** que se alma
 
 - **Tabla**: colección de filas.
 - **Fila (registro)**: conjunto de valores relacionados.
-- **Clave primaria (PK)**: identifica de forma única una fila.
-- **Clave foránea (FK)**: referencia a la PK de otra tabla.
+- **Clave primaria (PK)**: identifica de forma única cada fila de una tabla. Suele llamarse `id` y puede ser un entero autoincremental (`SERIAL`, `IDENTITY`) o un valor `UUID`.
+- **Clave sustituta (Surrogate Key)**: variante de PK basada en un valor sin significado de negocio (por ejemplo, un número secuencial) que evita cambios si la lógica de negocio evoluciona.
+- **Clave natural**: PK formada por un atributo con significado en el dominio del negocio (por ejemplo, `dni`, `correo_electronico`).
+- **Clave compuesta**: PK compuesta por **dos o más columnas** (ej. `(id_pedido, id_producto)` en una tabla de detalle).
+- **Clave candidata**: cualquier columna o conjunto de columnas que puede ser una PK (cumple unicidad y no nulidad).
+- **Clave única (UNIQUE)**: garantiza que no existan duplicados en una columna, pero puede permitir valores `NULL` dependiendo del motor.
+- **Clave foránea (FK)**: columna que referencia la PK (o una UNIQUE) de otra tabla, asegurando integridad referencial e implementando relaciones entre tablas.
 - Relaciones:
   - Uno a uno.
   - Uno a muchos.
@@ -87,6 +92,14 @@ DELETE FROM productos WHERE id = 1;
 
 ### 5.1 JOINs
 
+Un **JOIN** es una operación que **relaciona registros de distintas tablas** utilizando columnas en común (generalmente una clave primaria y una clave foránea).
+Sirve para obtener en una sola consulta datos que se encuentran distribuidos, evitando duplicidad y manteniendo la normalización.
+Los tipos de JOIN más usados son:
+
+- `INNER JOIN`: devuelve solo las coincidencias presentes en ambas tablas.
+- `LEFT JOIN` (`LEFT OUTER`): devuelve todas las filas de la tabla izquierda y las coincidencias de la derecha (o `NULL`).
+- `RIGHT JOIN` y `FULL JOIN`: análogos al anterior pero desde la derecha o devolviendo todas las filas de ambas tablas.
+
 ```
 SELECT u.nombre, p.total
 FROM usuarios u
@@ -94,6 +107,9 @@ JOIN pedidos p ON u.id = p.usuario_id;
 ```
 
 ### 5.2 GROUP BY
+
+`GROUP BY` agrupa filas que comparten valores en una o varias columnas para poder **aplicar funciones de agregación** (`COUNT`, `SUM`, `AVG`, `MAX`, `MIN`) sobre cada grupo.
+Es fundamental para generar reportes y estadísticas, ya que transforma conjuntos de registros detallados en resultados resumidos.
 
 ```
 SELECT categoria, AVG(precio)
